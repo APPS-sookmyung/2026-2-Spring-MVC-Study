@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Thread Test</title>
+</head>
+<body>
+<button id="run">/thread-check 에 동시에 10번 요청</button>
+<pre id="result"></pre>
+<script>
+    document.getElementById("run").addEventListener("click", async () => {
+        const result = document.getElementById("result");
+        result.textContent = "요청 중...";
+        const requests = [];
+        for (let i = 0; i < 10; i++) {
+            // cache: "no-store" 는 브라우저가 이전 응답을 재사용하지 않게 한다
+            requests.push(fetch("/thread-check?n=" + i, { cache: "no-store" }).then(r => r.text()));
+        }
+        const texts = await Promise.all(requests);
+        result.textContent = texts.join("\n");
+    });
+</script>
+</body>
+</html>
