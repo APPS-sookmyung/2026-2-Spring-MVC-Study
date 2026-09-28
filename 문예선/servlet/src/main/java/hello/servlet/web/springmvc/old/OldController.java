@@ -1,0 +1,17 @@
+package hello.servlet.web.springmvc.old;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+@Component("/springmvc/old-controller") // 빈 이름을 URL 로 지정한다
+public class OldController implements Controller {
+
+    @Override
+    public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) {
+        System.out.println("OldController.handleRequest");
+        return new ModelAndView("new-form");
+    }
+}
